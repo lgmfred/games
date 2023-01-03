@@ -2,6 +2,7 @@ defmodule Games.GuessingGame do
   def play do
     number = Enum.random(1..10)
     guess = guess()
+
     if number == guess do
       "Correct!"
     else
