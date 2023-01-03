@@ -3,10 +3,10 @@ defmodule Games.GuessingGame do
     number = Enum.random(1..10)
     guess = guess()
 
-    if number == guess do
-      "Correct!"
-    else
-      "Incorrect!"
+    cond do
+      guess == number -> IO.puts("Correct!")
+      guess > number -> IO.puts("Too High!")
+      guess < number -> IO.puts("Too Low!") 
     end
   end
 
