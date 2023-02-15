@@ -15,12 +15,19 @@ defmodule Games.GuessingGame do
   end
 
   defp check_guess(guess, answer) do
-    if guess == answer do
-      IO.puts("Correct!")
-    else
-      IO.puts("Incorrect!")
-      guess = guess()
-      check_guess(guess, answer)
+    cond do
+      guess == answer ->
+        IO.puts("Correct!")
+
+      guess > answer ->
+        IO.puts("Too High!")
+        guess = guess()
+        check_guess(guess, answer)
+
+      guess < answer ->
+        IO.puts("Too Low!")
+        guess = guess()
+        check_guess(guess, answer)
     end
   end
 
