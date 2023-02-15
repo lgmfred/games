@@ -11,8 +11,17 @@ defmodule Games.GuessingGame do
       |> IO.inspect(label: "Answer")
 
     guess = guess()
+    check_guess(guess, answer)
+  end
 
-    if guess == answer, do: "Correct!", else: "Incorrect!"
+  defp check_guess(guess, answer) do
+    if guess == answer do
+      IO.puts("Correct!")
+    else
+      IO.puts("Incorrect!")
+      guess = guess()
+      check_guess(guess, answer)
+    end
   end
 
   defp guess do
