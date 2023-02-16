@@ -2,6 +2,22 @@ defmodule Games.Wordle do
   @moduledoc """
   The Wordle game logic
   """
+
+  @doc """
+  Prompt user to guess a five letter word and return a list of color atoms
+  """
+  def play do
+    answer =
+      Enum.random(["toast", "tarts", "hello", "beats"])
+      |> IO.inspect(label: "Answer")
+
+    guess =
+      IO.gets("Enter a five letter word: ")
+      |> String.trim()
+
+    feedback(answer, guess)
+  end
+
   @doc """
   Takes two strings and returns a list of color atoms
   """
