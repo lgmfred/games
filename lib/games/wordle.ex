@@ -11,11 +11,27 @@ defmodule Games.Wordle do
       Enum.random(["toast", "tarts", "hello", "beats"])
       |> IO.inspect(label: "Answer")
 
+    count(answer)
+  end
+
+  def count(answer, count \\ 1)
+  def count(_answer, count) when count > 6, do: "You lose!"
+
+  def count(answer, count) do
     guess =
       IO.gets("Enter a five letter word: ")
       |> String.trim()
 
-    feedback(answer, guess)
+    result = feedback(answer, guess)
+
+    cond do
+      Enum.all?(result, fn atom -> atom == :green end) ->
+        result
+
+      true ->
+        IO.puts(inspect(result))
+        count(answer, count + 1)
+    end
   end
 
   @doc """
