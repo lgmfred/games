@@ -4,15 +4,9 @@ defmodule Games do
   """
 
   @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Games.hello()
-      :world
-
+  Starts the Games CLI. This module is used by Escript.
   """
-  def hello do
-    :world
+  def main(_args) do
+    Games.Menu.display()
   end
 end
