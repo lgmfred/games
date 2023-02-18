@@ -1,36 +1,54 @@
 defmodule Games.GuessingGame do
   @moduledoc """
-  Guessing game module
+  Games.GuessingGame documentation
+
+  A number guessing game which accepts user input (guess) through the command line
+  and provides feedback based on the guess.
   """
+
   @doc """
-  Prompt the player to guess and number and then return "Correct!" or "Incorrect!
+  Prompts a player to guess a `number`. If `number` is not passed as an argument,
+  it randomly picks a number between 1 and 10 for the player to guess.
+
+  ```elixir
+  Games.GuessingGame.play()
+  Enter your guess: 6
+  Too High!
+  Enter your guess: 1
+  Too Low!
+  Enter your guess: 4
+  Too High!
+  Enter your guess: 3
+  Correct!
+
+  Games.GuessingGame.play(33)
+  Enter your guess: 13
+  Too Low!
+  Enter your guess: 50
+  Too High!
+  Enter your guess: 33
+  Correct!
+  ```
   """
-  def play do
-    answer =
-      Enum.random(1..10)
-      |> IO.inspect(label: "Answer")
-
+  @spec play(nil | integer()) :: no_return()
+  def play(number \\ Enum.random(1..10)) do
     guess = guess()
-    check_guess(guess, answer)
+    game_logic(number, guess)
+
+    unless guess == number, do: play(number)
   end
 
-  defp check_guess(guess, answer) do
+  @spec game_logic(integer(), integer()) :: :ok
+  defp game_logic(number, guess) do
     cond do
-      guess == answer ->
-        IO.puts("Correct!")
-
-      guess > answer ->
-        IO.puts("Too High!")
-        guess = guess()
-        check_guess(guess, answer)
-
-      guess < answer ->
-        IO.puts("Too Low!")
-        guess = guess()
-        check_guess(guess, answer)
+      guess == number -> "Correct!"
+      guess < number -> "Too Low!"
+      guess > number -> "Too High!"
     end
+    |> IO.puts()
   end
 
+  @spec guess :: integer()
   defp guess do
     IO.gets("Enter your guess: ")
     |> String.trim()

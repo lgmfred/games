@@ -5,12 +5,12 @@ defmodule Games.WordleTest do
 
   # Green: if the letter is in the word and in the correct spot.
   # Yellow: if the letter is in the word but in the incorrect spot.
-  # Gray: if the letter is not in the word.
+  # grey: if the letter is not in the word.
 
-  test "feedback/2 all gray" do
-    gray_list = [:gray, :gray, :gray, :gray, :gray]
-    assert Wordle.feedback("abcde", "fghij") == gray_list
-    assert Wordle.feedback("klmno", "pqrst") == gray_list
+  test "feedback/2 all grey" do
+    grey_list = [:grey, :grey, :grey, :grey, :grey]
+    assert Wordle.feedback("abcde", "fghij") == grey_list
+    assert Wordle.feedback("klmno", "pqrst") == grey_list
   end
 
   test "feedback/2 all green" do
@@ -25,16 +25,16 @@ defmodule Games.WordleTest do
     assert Wordle.feedback("vwxyz", "zxywv") == yellow_list
   end
 
-  test "feedback/2 some gray some green" do
-    list1 = [:gray, :green, :gray, :green, :gray]
-    list2 = [:green, :green, :green, :gray, :gray]
+  test "feedback/2 some grey some green" do
+    list1 = [:grey, :green, :grey, :green, :grey]
+    list2 = [:green, :green, :green, :grey, :grey]
     assert Wordle.feedback("abcde", "zbxdw") == list1
     assert Wordle.feedback("zbxdw", "zbxvp") == list2
   end
 
-  test "feedback/2 some gray some yellow" do
-    list1 = [:gray, :yellow, :gray, :yellow, :gray]
-    list2 = [:yellow, :gray, :gray, :yellow, :yellow]
+  test "feedback/2 some grey some yellow" do
+    list1 = [:grey, :yellow, :grey, :yellow, :grey]
+    list2 = [:yellow, :grey, :grey, :yellow, :yellow]
     assert Wordle.feedback("abcde", "zeybw") == list1
     assert Wordle.feedback("zbxdw", "wumbx") == list2
   end
@@ -46,10 +46,17 @@ defmodule Games.WordleTest do
     assert Wordle.feedback("zbxdw", "wbxzd") == list2
   end
 
-  test "feedback/2 some gray some green some yellow" do
-    list1 = [:gray, :green, :yellow, :green, :yellow]
-    list2 = [:yellow, :green, :gray, :yellow, :gray]
+  test "feedback/2 some grey some green some yellow" do
+    list1 = [:grey, :green, :yellow, :green, :yellow]
+    list2 = [:yellow, :green, :grey, :yellow, :grey]
     assert Wordle.feedback("abcde", "zbedc") == list1
     assert Wordle.feedback("zbxdw", "wbmxu") == list2
+  end
+
+  test "feedback/2 prioritize exact matches give duplicates chars." do
+    list1 = [:grey, :green, :green, :yellow, :grey]
+    list2 = [:grey, :green, :green, :green, :green]
+    assert Wordle.feedback("aaabb", "xaaaa") == list1
+    assert Wordle.feedback("ababc", "bbabc") == list2
   end
 end
