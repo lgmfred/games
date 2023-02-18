@@ -1,21 +1,54 @@
 # Games
 
-**TODO: Add description**
+My junky solution to the [DockYard Academy](https://github.com/DockYard-Academy/curriculum) Games project.
 
-## Installation
+It includes a Games Escript with a Guessing Game, Rock Paper Scissors, and Wordle.
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `games` to your list of dependencies in `mix.exs`:
+## Getting Started
 
-```elixir
-def deps do
-  [
-    {:games, "~> 0.1.0"}
-  ]
-end
+Install Elixir by following the [Elixir Installation Guide](https://elixir-lang.org/install.html).
+
+Clone the repository.
+
+```
+$ git clone https://github.com/lgmfred/games.git
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/games>.
+Install dependencies.
 
+```
+$ mix deps.get
+```
+
+Run tests and ensure they all pass.
+
+```shell
+$ mix test
+```
+Generate docs (if you like).
+
+```shell
+$ mix docs
+```
+
+Then you can either start the project in the IEx shell.
+
+```shell
+$ iex -S mix
+iex> Games.Menu.display()
+```
+
+Or build the project as an escript executable.
+
+```shell
+$ mix escript.build
+$ ./games
+```
+
+## Concepts learned
+
+- Basic Elixir syntax
+- Elixir Build Tooling(Mix)
+- Testing and TDD (ExUnit With Mix Projects)
+- Documentation and Static Analysis (Doctests, Typespecs, ExDoc and Credo)
+- Executables
